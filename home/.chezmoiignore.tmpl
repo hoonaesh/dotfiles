@@ -28,3 +28,7 @@ Library
 AppData
 Documents
 {{ end }}
+
+{{ if not .flags.wsl }}
+.chezmoiscripts/wsl/**
+{{ end }}

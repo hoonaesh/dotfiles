@@ -1,0 +1,4 @@
+Set-Alias -Name g -Value git
+{{ if lookPath "mise" -}}
+mise activate pwsh | Out-String | Invoke-Expression
+{{ end }}

@@ -11,6 +11,11 @@
 
 {{- $ephemeral := false -}}
 {{- $headless := false -}}
+{{- $isWsl := false -}}
+
+{{- if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
+{{-   $isWsl = true -}}
+{{- end -}}
 
 {{- $signingKey := "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDXuQPyN8tLZ93Z0S50uyH9XYEJfwu99+N2Y25selqnG" -}}
 
@@ -29,6 +34,7 @@ prefix = "{{ if eq .chezmoi.arch "arm64" }}/opt/homebrew{{ else }}/usr/local{{ e
 
 [data.flags]
 ephemeral = {{ $ephemeral }}
+wsl = {{ $isWsl }}
 
 [data.profiles]
 developer = {{ $developer }}
