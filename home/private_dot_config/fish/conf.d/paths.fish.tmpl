@@ -11,3 +11,7 @@ set -q MANPATH; or set MANPATH ''
 set -gx MANPATH {{ .homebrew.prefix }}/share/man $MANPATH
 set -q INFOPATH; or set INFOPATH ''
 set -gx INFOPATH {{ .homebrew.prefix }}/share/info $INFOPATH
+
+{{- if stat (joinPath .chezmoi.homeDir ".config/emacs") }}
+fish_add_path $XDG_CONFIG_HOME/emacs/bin
+{{- end }}

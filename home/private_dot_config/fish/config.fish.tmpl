@@ -7,5 +7,7 @@ source ~/.config/fish/conf.d/aliases.fish
 set -g fish_greeting
 
 {{ if lookPath "zoxide" -}}
-zoxide init fish | source
+{{   if eq .chezmoi.os "darwin" -}}
+{{ .homebrew.prefix }}/bin/zoxide init fish | source
+{{-   end }}
 {{ end }}

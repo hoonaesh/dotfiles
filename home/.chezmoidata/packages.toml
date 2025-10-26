@@ -2,6 +2,8 @@
 brews = [
   "bat",
   "chezmoi",
+  "cmake",
+  "coreutils",
   "dockutil",
   "duti",
   "fish",
