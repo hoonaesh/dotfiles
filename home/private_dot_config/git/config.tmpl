@@ -1,7 +1,7 @@
 [user]
 name = {{ .name }}
 email = {{ .email }}
-signingKey = "key::{{ .signingKey }}"
+signingKey = "{{ .signingKey }}"
 
 [commit]
 gpgsign = true
@@ -11,8 +11,13 @@ format = ssh
 
 [gpg.ssh]
 allowedSignersFile = ~/.ssh/allowed_signers
+{{ if eq .defaults.authManager "1password" -}}
+{{   if eq .chezmoi.os "darwin" -}}
+program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+{{-   end }}
+{{ else -}}
 defaultKeyCommand = ssh-add -L
-
+{{- end }}
 [init]
 defaultBranch = main
 

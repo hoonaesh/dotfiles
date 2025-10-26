@@ -20,5 +20,6 @@ casks = [
   "font-jetbrains-mono-nerd-font",
   "neovide-app",
   "raycast",
-  "warp"
+  "warp",
+  "1password"
 ]
