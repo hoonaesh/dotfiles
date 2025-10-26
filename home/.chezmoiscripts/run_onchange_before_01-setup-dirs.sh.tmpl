@@ -1,3 +1,4 @@
+{{ if ne .chezmoi.os "windows" -}}
 #!/usr/bin/env zsh
 
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
@@ -11,3 +12,4 @@ XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 [ -d "$XDG_STATE_HOME/zsh"  ] || mkdir -p "$XDG_STATE_HOME/zsh"
 [ -d "$XDG_CACHE_HOME"  ]     || mkdir -p "$XDG_CACHE_HOME"
 [ -d "$XDG_CACHE_HOME/zsh"  ] || mkdir -p "$XDG_CACHE_HOME/zsh"
+{{ end }}

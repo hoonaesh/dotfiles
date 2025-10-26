@@ -3,6 +3,11 @@ name = {{ .name }}
 email = {{ .email }}
 signingKey = "{{ .signingKey }}"
 
+{{ if eq .chezmoi.os "windows" -}}
+[core]
+sshCommand = C:/Windows/System32/OpenSSH/ssh.exe
+{{- end }}
+
 [commit]
 gpgsign = true
 
@@ -10,13 +15,16 @@ gpgsign = true
 format = ssh
 
 [gpg.ssh]
-allowedSignersFile = ~/.ssh/allowed_signers
 {{ if eq .defaults.authManager "1password" -}}
 {{   if eq .chezmoi.os "darwin" -}}
 program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+{{   else if eq .chezmoi.os "windows" -}}
+program = "C:/Users/user/AppData/Local/1Password/app/8/op-ssh-sign.exe"
 {{-   end }}
 {{ else -}}
-defaultKeyCommand = ssh-add -L
+{{   if eq .chezmoi.os "windows" -}}
+program = C:/Windows/System32/OpenSSH/ssh-keygen.exe
+{{-   end }}
 {{- end }}
 [init]
 defaultBranch = main

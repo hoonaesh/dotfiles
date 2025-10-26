@@ -14,8 +14,17 @@ key.txt.age
 Library
 .chezmoiscripts/darwin/**
 .warp
+.config/iterm2
 {{ end }}
 
 {{ if eq .chezmoi.os "windows" }}
 .hushlogin
+.config/doom
+.config/fish
+.zshenv
+{{ end }}
+
+{{ if ne .chezmoi.os "windows" }}
+AppData
+Documents
 {{ end }}

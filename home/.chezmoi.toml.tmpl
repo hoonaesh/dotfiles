@@ -1,7 +1,7 @@
 {{- $name := promptStringOnce . "name" "Name" -}}
 {{- $email := promptStringOnce . "email" "Email address" -}}
 {{- $location := promptChoiceOnce . "location" "Location" (list "home" "work") "work" -}}
-{{- $shell := promptChoiceOnce . "defaults.shell" "Default shell" (list "zsh" "fish") "fish" -}}
+{{- $shell := promptChoiceOnce . "defaults.shell" "Default shell" (list "zsh" "fish" "pwsh") "fish" -}}
 {{- $authManager := "1password" -}}
 
 {{- $developer := promptBoolOnce . "profiles.developer" "Include developer tools" true -}}
@@ -12,7 +12,7 @@
 {{- $ephemeral := false -}}
 {{- $headless := false -}}
 
-{{- $signingKey:= "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDXuQPyN8tLZ93Z0S50uyH9XYEJfwu99+N2Y25selqnG" -}}
+{{- $signingKey := "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDXuQPyN8tLZ93Z0S50uyH9XYEJfwu99+N2Y25selqnG" -}}
 
 [data]
 name = {{ $name | quote }}
