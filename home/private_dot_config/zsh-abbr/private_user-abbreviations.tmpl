@@ -1,3 +1,5 @@
 {{- range .abbreviations }}
+{{- if or (not (hasKey . "platform")) (eq .platform .chezmoi.os) }}
 abbr -g "{{ .key }}"="{{ .value }}"
+{{- end }}
 {{- end }}

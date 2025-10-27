@@ -2,12 +2,10 @@
 name = {{ .name }}
 email = {{ .email }}
 signingKey = "{{ .signingKey }}"
-
 {{ if eq .chezmoi.os "windows" -}}
 [core]
 sshCommand = C:/Windows/System32/OpenSSH/ssh.exe
 {{- end }}
-
 [commit]
 gpgsign = true
 
@@ -22,6 +20,8 @@ program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
 program = "C:/Users/user/AppData/Local/1Password/app/8/op-ssh-sign.exe"
 {{-   else if .flags.wsl -}}
 program = "/mnt/c/Users/user/AppData/Local/1Password/app/8/op-ssh-sign-wsl"
+{{-   else if eq .chezmoi.os "linux" -}}
+program = "/opt/1Password/op-ssh-sign"
 {{-   end }}
 {{ else -}}
 {{   if eq .chezmoi.os "windows" -}}

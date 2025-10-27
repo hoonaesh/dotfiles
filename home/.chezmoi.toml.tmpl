@@ -1,7 +1,7 @@
 {{- $name := promptStringOnce . "name" "Name" -}}
 {{- $email := promptStringOnce . "email" "Email address" -}}
 {{- $location := promptChoiceOnce . "location" "Location" (list "home" "work") "work" -}}
-{{- $shell := promptChoiceOnce . "defaults.shell" "Default shell" (list "zsh" "fish" "pwsh") "fish" -}}
+{{- $shell := promptChoiceOnce . "defaults.shell" "Default shell" (list "bash" "zsh" "fish" "pwsh") "fish" -}}
 {{- $authManager := "1password" -}}
 
 {{- $developer := promptBoolOnce . "profiles.developer" "Include developer tools" true -}}
