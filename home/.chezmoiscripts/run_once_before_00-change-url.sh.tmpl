@@ -1,0 +1,18 @@
+#!/bin/sh
+# Post-checkout hook to convert HTTPS git remote URLs to SSH
+
+# Get the current origin URL
+origin_url=$(git remote get-url origin 2>/dev/null)
+
+# Check if origin exists and uses HTTPS
+if [[ -n "$origin_url" ]] && [[ "$origin_url" =~ ^https://github\.com/ ]]; then
+    # Convert HTTPS URL to SSH format
+    # From: https://github.com/user/repo.git
+    # To:   git@github.com:user/repo.git
+    ssh_url=$(echo "$origin_url" | sed 's|https://github\.com/|git@github.com:|')
+
+    # Update the remote URL
+    git remote set-url origin "$ssh_url"
+
+    echo "✓ Converted origin remote from HTTPS to SSH: $ssh_url"
+fi
