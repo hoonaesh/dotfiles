@@ -1,0 +1,14 @@
+{{ $packages := include ".chezmoidata/packages/windows.toml" | fromToml }}
+{{- if or $packages.winget $packages.msstore }}
+winget source update --disable-interactivity
+{{- end }}
+{{- if $packages.winget }}
+{{-   range $packages.winget }}
+winget install -e --disable-interactivity --silent --accept-source-agreements --accept-package-agreements --id {{ . | quote }}
+{{-   end }}
+{{- end }}
+{{- if $packages.msstore }}
+{{-   range $packages.msstore }}
+winget install -e --disable-interactivity --silent --accept-source-agreements --accept-package-agreements -s msstore --id {{ . | quote }}
+{{-   end }}
+{{- end }}

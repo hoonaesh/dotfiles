@@ -5,29 +5,31 @@ key.txt.age
 .config/zsh/.zcompdump
 .config/zsh/.zsh_history
 
-{{ if eq .chezmoi.os "darwin" }}
-.DS_Store
-**/.DS_Store
-{{ end }}
-
-{{ if ne .chezmoi.os "darwin" }}
-Library
-.chezmoiscripts/darwin/**
-.warp
-.config/iterm2
-{{ end }}
-
-{{ if eq .chezmoi.os "windows" }}
-.hushlogin
+{{ if (and (ne .chezmoi.os "darwin") (ne .chezmoi.os "linux")) }}
+.chezmoiscripts/unix/**
 .config/doom
 .config/fish
 .config/zsh
 .zshenv
 {{ end }}
 
+{{ if eq .chezmoi.os "darwin" }}
+.DS_Store
+**/.DS_Store
+{{ end }}
+
+{{ if ne .chezmoi.os "darwin" }}
+.hushlogin
+Library
+.chezmoiscripts/darwin/**
+.warp
+.config/iterm2
+{{ end }}
+
 {{ if ne .chezmoi.os "windows" }}
 AppData
 Documents
+.chezmoiscripts/windows/**
 {{ end }}
 
 {{ if not .flags.wsl }}

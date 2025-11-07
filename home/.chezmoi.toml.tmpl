@@ -1,12 +1,18 @@
 {{- $name := promptStringOnce . "name" "Name" -}}
 {{- $email := promptStringOnce . "email" "Email address" -}}
 {{- $location := promptChoiceOnce . "location" "Location" (list "home" "work") "work" -}}
-{{- $shell := promptChoiceOnce . "defaults.shell" "Default shell" (list "zsh" "fish" "pwsh") "fish" -}}
+{{- $shell := "sh" -}}
 {{- $authManager := "1password" -}}
 
 {{- $ephemeral := false -}}
 {{- $headless := false -}}
 {{- $isWsl := false -}}
+
+{{- if eq .chezmoi.os "windows" -}}
+{{-   $shell = "pwsh" -}}
+{{- else -}}
+{{-   $shell = promptChoiceOnce . "defaults.shell" "Default shell" (list "zsh" "fish") "fish" -}}
+{{- end -}}
 
 {{- $developer := false -}}
 {{- $gaming := false -}}
@@ -17,11 +23,14 @@
 {{-   $isWsl = true -}}
 {{- end -}}
 
-{{- if and (not $ephemeral) (not $isWsl) -}}
+{{- if not $ephemeral -}}
 {{-   $developer = promptBoolOnce . "profiles.developer" "Include developer tools" true -}}
-{{-   $gaming = promptBoolOnce . "profiles.gaming" "Enable gaming features" false -}}
 {{-   $encoding = promptBoolOnce . "profiles.encoding" "Include encoding and production tools and settings" false -}}
 {{-   $server = promptBoolOnce . "profiles.server" "Configure device as server" false -}}
+{{- end -}}
+
+{{- if and (not $isWsl) (not $ephemeral) -}}
+{{-   $gaming = promptBoolOnce . "profiles.gaming" "Enable gaming features" false -}}
 {{- end -}}
 
 {{- $signingKey := "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDXuQPyN8tLZ93Z0S50uyH9XYEJfwu99+N2Y25selqnG" -}}
