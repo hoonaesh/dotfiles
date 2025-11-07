@@ -19,7 +19,7 @@ format = ssh
 {{   if eq .chezmoi.os "darwin" -}}
 program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
 {{   else if eq .chezmoi.os "windows" -}}
-program = "C:/Users/user/AppData/Local/1Password/app/8/op-ssh-sign.exe"
+program = {{ .chezmoi.destDir }}/AppData/Local/1Password/app/8/op-ssh-sign.exe
 {{-   else if .flags.wsl -}}
 program = "/mnt/c/Users/user/AppData/Local/1Password/app/8/op-ssh-sign-wsl"
 {{-   end }}
