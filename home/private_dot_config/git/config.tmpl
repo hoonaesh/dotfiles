@@ -21,7 +21,7 @@ program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
 {{   else if eq .chezmoi.os "windows" -}}
 program = {{ .chezmoi.destDir }}/AppData/Local/1Password/app/8/op-ssh-sign.exe
 {{-   else if .flags.wsl -}}
-program = "/mnt/c/Users/user/AppData/Local/1Password/app/8/op-ssh-sign-wsl"
+program = "/mnt/c/Users/admin/AppData/Local/1Password/app/8/op-ssh-sign-wsl"
 {{-   end }}
 {{ else -}}
 {{   if eq .chezmoi.os "windows" -}}

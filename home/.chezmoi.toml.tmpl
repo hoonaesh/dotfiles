@@ -8,8 +8,14 @@
 {{- $headless := false -}}
 {{- $isWsl := false -}}
 
+{{- if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
+{{-   $isWsl = true -}}
+{{- end -}}
+
 {{- if eq .chezmoi.os "windows" -}}
 {{-   $shell = "pwsh" -}}
+{{- else if $isWsl -}}
+{{-   $shell = "bash" -}}
 {{- else -}}
 {{-   $shell = promptChoiceOnce . "defaults.shell" "Default shell" (list "zsh" "fish") "fish" -}}
 {{- end -}}
@@ -18,10 +24,6 @@
 {{- $gaming := false -}}
 {{- $encoding := false -}}
 {{- $server := false -}}
-
-{{- if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
-{{-   $isWsl = true -}}
-{{- end -}}
 
 {{- if not $ephemeral -}}
 {{-   $developer = promptBoolOnce . "profiles.developer" "Include developer tools" true -}}
