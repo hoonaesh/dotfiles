@@ -4,17 +4,24 @@
 {{- $shell := promptChoiceOnce . "defaults.shell" "Default shell" (list "zsh" "fish" "pwsh") "fish" -}}
 {{- $authManager := "1password" -}}
 
-{{- $developer := promptBoolOnce . "profiles.developer" "Include developer tools" true -}}
-{{- $gaming := promptBoolOnce . "profiles.gaming" "Enable gaming features" false -}}
-{{- $encoding := promptBoolOnce . "profiles.encoding" "Include encoding and production tools and settings" false -}}
-{{- $server := promptBoolOnce . "profiles.server" "Configure device as server" false -}}
-
 {{- $ephemeral := false -}}
 {{- $headless := false -}}
 {{- $isWsl := false -}}
 
+{{- $developer := false -}}
+{{- $gaming := false -}}
+{{- $encoding := false -}}
+{{- $server := false -}}
+
 {{- if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
 {{-   $isWsl = true -}}
+{{- end -}}
+
+{{- if and (not $ephemeral) (not $isWsl) -}}
+{{-   $developer = promptBoolOnce . "profiles.developer" "Include developer tools" true -}}
+{{-   $gaming = promptBoolOnce . "profiles.gaming" "Enable gaming features" false -}}
+{{-   $encoding = promptBoolOnce . "profiles.encoding" "Include encoding and production tools and settings" false -}}
+{{-   $server = promptBoolOnce . "profiles.server" "Configure device as server" false -}}
 {{- end -}}
 
 {{- $signingKey := "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDXuQPyN8tLZ93Z0S50uyH9XYEJfwu99+N2Y25selqnG" -}}
@@ -36,6 +43,7 @@ prefix = "{{ if eq .chezmoi.arch "arm64" }}/opt/homebrew{{ else }}/usr/local{{ e
 
 [data.flags]
 ephemeral = {{ $ephemeral }}
+headless = {{ $headless }}
 wsl = {{ $isWsl }}
 
 [data.profiles]
